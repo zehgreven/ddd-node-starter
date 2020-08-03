@@ -65,6 +65,6 @@ createConnection(createConnectionOptions())
   })
   .catch((error) => console.log('TypeORM connection error: ', error));
 
-process.on('unhandledRejection', (error) => {
-  console.log('unhandledRejection', error['message']);
+process.on('unhandledRejection', (error: any) => {
+  console.log('unhandledRejection', error.message);
 });
