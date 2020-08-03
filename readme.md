@@ -11,32 +11,27 @@ docker-compose up -d
 2. Copy ormconfig.example.json to ormconfig.json with your DB connection;
 3. Install dependencies;
 ```bash
-npm i
+yarn
 ```
 
-4. Install globally typeorm;
+4. Compile .ts to .js files to ./bin/ folder;
 ```bash
-sudo npm i typeorm -g
+yarn compile
 ```
 
-5. Compile .ts to .js files to ./bin/ folder;
+5. Up migrations;
 ```bash
-npm run compile
+yarn typeorm migrations:run
 ```
 
-6. Up migrations;
+6. Run Application in dev mode.
 ```bash
-typeorm migrations:run
-```
-
-7. Run Application in dev mode.
-```bash
-npm run dev
+yarn dev
 ```
 
 ### Testing
 
 1. Execute command in cli;
 ```bash
-npm run test:all
+yarn test:all
 ```

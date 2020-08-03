@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc",
     "start": "tsc && nodemon bin/app",
-    "dev": "nodemon -e tsn -w ./src --ignore './src/Tests/' --exec \"npm run start\"",
+    "dev": "nodemon -e tsn -w ./src --ignore './src/Tests/' --exec \"yarn start\"",
     "test": "nyc --clean --require ts-node/register --require tsconfig-paths/register --require reflect-metadata/Reflect --extension .ts -- mocha --exit --timeout 5000",
     "test:all": "yarn test **/*.spec.ts",
     "dev:no-compile": "nodemon",
