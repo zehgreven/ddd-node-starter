@@ -15,7 +15,14 @@
     "typeorm:migration:create": "typeorm migration:create --name "
   },
   "keywords": [],
-  "author": "José Eduardo Costa Lazaretti",
+  "author": {
+    "name": "Dima Aseev",
+    "url": "https://github.com/dmiseev/"
+  },
+  "contributors": [{
+    "name": "José Eduardo Costa Lazaretti",
+    "url": "https://github.com/zehgreven/"
+  }],
   "license": "ISC",
   "repository": {
     "type": "git",
