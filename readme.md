@@ -21,7 +21,7 @@ yarn compile
 
 5. Up migrations;
 ```bash
-yarn typeorm migrations:run
+yarn typeorm migration:run
 ```
 
 6. Run Application in dev mode.
