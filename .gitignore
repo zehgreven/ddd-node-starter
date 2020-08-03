@@ -5,4 +5,4 @@ coverage
 bin
 ormconfig.json
 .vscode
-yarn.lock
+*.lock
