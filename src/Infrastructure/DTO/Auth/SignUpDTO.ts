@@ -1,47 +1,42 @@
 import { Request } from 'express';
 
-export class SignUpDTO{
+export class SignUpDTO {
+  private _email: string;
 
-    private _email: string;
-    private _password: string;
-    private _firstName: string;
-    private _lastName: string;
+  private _password: string;
 
-    constructor(email: string, password: string, firstName: string, lastName: string)
-    {
-        this._email = email;
-        this._password = password;
-        this._firstName = firstName;
-        this._lastName = lastName;
-    }
+  private _firstName: string;
 
-    /**
-     * @param {} request
-     * @returns {SignUpDTO}
-     */
-    static fromRequest(request: Request)
-    {
-        return new SignUpDTO(
-            request.body.email,
-            request.body.password,
-            request.body.firstName,
-            request.body.lastName
-        );
-    }
+  private _lastName: string;
 
-    get email(): string {
-        return this._email;
-    }
+  constructor(email: string, password: string, firstName: string, lastName: string) {
+    this._email = email;
+    this._password = password;
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
 
-    get password(): string {
-        return this._password;
-    }
+  /**
+   * @param {} request
+   * @returns {SignUpDTO}
+   */
+  static fromRequest(request: Request) {
+    return new SignUpDTO(request.body.email, request.body.password, request.body.firstName, request.body.lastName);
+  }
 
-    get firstName(): string {
-        return this._firstName;
-    }
+  get email(): string {
+    return this._email;
+  }
 
-    get lastName(): string {
-        return this._lastName;
-    }
+  get password(): string {
+    return this._password;
+  }
+
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get lastName(): string {
+    return this._lastName;
+  }
 }

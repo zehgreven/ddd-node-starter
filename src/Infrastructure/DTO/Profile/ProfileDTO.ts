@@ -1,38 +1,35 @@
 import { IRequest } from '../../../Utils/Request/custom';
 
 export class ProfileDTO {
+  private _email: string;
 
-    private _email: string;
-    private _firstName: string;
-    private _lastName: string;
+  private _firstName: string;
 
-    constructor(email: string, firstName: string, lastName: string) {
-        this._email = email;
-        this._firstName = firstName;
-        this._lastName = lastName;
-    }
+  private _lastName: string;
 
-    /**
-     * @param {Request} request
-     * @returns {ProfileDTO}
-     */
-    static fromRequest(request: IRequest) {
-        return new ProfileDTO(
-            request.body.email,
-            request.body.firstName,
-            request.body.lastName
-        );
-    }
+  constructor(email: string, firstName: string, lastName: string) {
+    this._email = email;
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
 
-    get email(): string {
-        return this._email;
-    }
+  /**
+   * @param {Request} request
+   * @returns {ProfileDTO}
+   */
+  static fromRequest(request: IRequest) {
+    return new ProfileDTO(request.body.email, request.body.firstName, request.body.lastName);
+  }
 
-    get firstName(): string {
-        return this._firstName;
-    }
+  get email(): string {
+    return this._email;
+  }
 
-    get lastName(): string {
-        return this._lastName;
-    }
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get lastName(): string {
+    return this._lastName;
+  }
 }

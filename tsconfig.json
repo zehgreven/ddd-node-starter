@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es2017",
     "sourceMap": true,
     "outDir": "bin",
     "experimentalDecorators": true,
@@ -9,12 +9,20 @@
     "diagnostics": false,
     "module": "commonjs",
     "noImplicitAny": false,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@domain/*": ["./src/Domain/*"],
+    }
   },
   "typeRoots": [
     "node_modules/@types"
   ],
   "compileOnSave": true,
+  "include": [
+    "src/**/*.ts", "src/**/*.js", "prettier.config.js"
+  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,34 +1,34 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 
 import { Container } from 'inversify';
 
-import TYPES from './types';
-import { UserController } from '../Http/Controllers/UserController';
-import { UserService } from '../Infrastructure/Services/UserService';
-import { TypeOrmUserRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmUserRepository';
-import { UserRepository } from '../Domain/User/UserRepository';
-import { AuthService } from '../Infrastructure/Services/AuthService';
+import { IAuthService } from '../Domain/Core/IAuthService';
+import { IUploadService } from '../Domain/Core/IUploadService';
+import { FriendRequestRepository } from '../Domain/FriendRequest/FriendRequestRepository';
+import { IFriendRequestService } from '../Domain/FriendRequest/IFriendRequestService';
+import { IImageService } from '../Domain/Image/IImageService';
 import { ImageRepository } from '../Domain/Image/ImageRepository';
-import { TypeOrmImageRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmImageRepository';
-import { HomeController } from '../Http/Controllers/HomeController';
+import { IUserService } from '../Domain/User/IUserService';
+import { UserRepository } from '../Domain/User/UserRepository';
 import { SignInController } from '../Http/Controllers/Auth/SignInController';
 import { SignUpController } from '../Http/Controllers/Auth/SignUpController';
-import { IUserService } from '../Domain/User/IUserService';
-import { IAuthService } from '../Domain/Core/IAuthService';
-import { UploadController } from '../Http/Controllers/UploadController';
-import { MultipartUploadService } from '../Infrastructure/Services/MultipartUploadService';
-import { IUploadService } from '../Domain/Core/IUploadService';
-import { ProfileController } from '../Http/Controllers/ProfileController';
-import { ImageController } from '../Http/Controllers/ImageController';
-import { IImageService } from '../Domain/Image/IImageService';
-import { ImageService } from '../Infrastructure/Services/ImageService';
-import { FriendRequestRepository } from '../Domain/FriendRequest/FriendRequestRepository';
-import { TypeOrmFriendRequestRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmFriendRequestRepository';
-import { IFriendRequestService } from '../Domain/FriendRequest/IFriendRequestService';
-import { FriendRequestService } from '../Infrastructure/Services/FriendRequestService';
 import { FriendRequestController } from '../Http/Controllers/FriendRequestController';
+import { HomeController } from '../Http/Controllers/HomeController';
+import { ImageController } from '../Http/Controllers/ImageController';
+import { ProfileController } from '../Http/Controllers/ProfileController';
+import { UploadController } from '../Http/Controllers/UploadController';
+import { UserController } from '../Http/Controllers/UserController';
+import { TypeOrmFriendRequestRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmFriendRequestRepository';
+import { TypeOrmImageRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmImageRepository';
+import { TypeOrmUserRepository } from '../Infrastructure/Domain/TypeOrm/TypeOrmUserRepository';
+import { AuthService } from '../Infrastructure/Services/AuthService';
+import { FriendRequestService } from '../Infrastructure/Services/FriendRequestService';
+import { ImageService } from '../Infrastructure/Services/ImageService';
+import { MultipartUploadService } from '../Infrastructure/Services/MultipartUploadService';
+import { UserService } from '../Infrastructure/Services/UserService';
+import TYPES from './types';
 
-let container: Container = new Container();
+const container: Container = new Container();
 
 container.bind<UserRepository>('UserRepository').to(TypeOrmUserRepository);
 container.bind<ImageRepository>('ImageRepository').to(TypeOrmImageRepository);

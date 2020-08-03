@@ -1,57 +1,58 @@
-import { controller, httpPost } from 'inversify-express-utils';
+import * as fs from 'fs';
 import { inject } from 'inversify';
-import { IUploadService } from '../../Domain/Core/IUploadService';
+import { controller, httpPost } from 'inversify-express-utils';
 import * as multer from 'multer';
 import * as path from 'path';
-import * as fs from 'fs';
-import * as uuidv4 from 'uuid/v4';
-import { authMiddleware } from '../Middleware/CustomMiddleware';
+import { uuid } from 'uuidv4';
+
+import { IUploadService } from '../../Domain/Core/IUploadService';
 import { IRequest } from '../../Utils/Request/custom';
+import { authMiddleware } from '../Middleware/CustomMiddleware';
 
 @controller('/uploads', authMiddleware)
 export class UploadController {
+  constructor(@inject('IUploadService') private uploadService: IUploadService) {}
 
-    constructor(@inject('IUploadService') private uploadService: IUploadService) {
-    }
+  /**
+   * TODO: need think about refactoring :)
+   * @param {IRequest} request
+   */
+  @httpPost(
+    '/',
+    multer({
+      storage: multer.diskStorage({
+        destination: (req: IRequest, file, callback) => {
+          const folderPath = path.resolve(`./public/uploads/${req.user.id}/`);
 
-    /**
-     * TODO: need think about refactoring :)
-     * @param {IRequest} request
-     */
-    @httpPost('/', multer({
+          if (!fs.existsSync(folderPath)) {
+            fs.mkdirSync(folderPath);
+          }
 
-        storage: multer.diskStorage({
+          callback(null, folderPath);
+        },
 
-            destination: (req: IRequest, file, callback) => {
-                let folderPath = path.resolve('./public/uploads/' + req.user.id + '/');
+        filename(req, file, callback) {
+          callback(null, `${uuid()}.${file.mimetype.split('/')[1]}`);
+        },
+      }),
 
-                if (!fs.existsSync(folderPath)) {
-                    fs.mkdirSync(folderPath);
-                }
-
-                callback(null, folderPath);
-            },
-
-            filename: function (req, file, callback) {
-                callback(null, uuidv4() + '.' + file.mimetype.split('/')[1]);
-            }
-        }),
-
-        fileFilter: (req, file, callback) => {
-
-            if (!file) {
-                return callback(new Error('Could not upload image.'), false);
-            }
-
-            if (!file.mimetype.startsWith('image/') || !file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-                return callback(new Error('Could not upload image. The file does not match the type: jpeg, png, gif.'), false);
-            }
-
-            callback(null, true);
+      fileFilter: (req, file, callback) => {
+        if (!file) {
+          return callback(new Error('Could not upload image.'), false);
         }
-    }).single('image'))
-    public upload(request: IRequest) {
 
-        return this.uploadService.fromRequest(request);
-    }
+        if (!file.mimetype.startsWith('image/') || !file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+          return callback(
+            new Error('Could not upload image. The file does not match the type: jpeg, png, gif.'),
+            false
+          );
+        }
+
+        callback(null, true);
+      },
+    }).single('image')
+  )
+  public upload(request: IRequest) {
+    return this.uploadService.fromRequest(request);
+  }
 }

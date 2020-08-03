@@ -3,9 +3,9 @@
   "type": "postgres",
   "host": "127.0.0.1",
   "port": 5411,
-  "username": "starter_user",
-  "password": "Eh7gLagHHHzK2h7j",
-  "database": "starter_db",
+  "username": "docker",
+  "password": "docker",
+  "database": "base",
   "synchronize": "all",
   "logging": false,
   "entities": [

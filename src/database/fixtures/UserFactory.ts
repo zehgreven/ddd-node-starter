@@ -1,32 +1,31 @@
-import { User } from '../../Domain/User/User';
 import * as bcrypt from 'bcrypt';
 
+import { User } from '../../Domain/User/User';
+
 export class UserFactory {
+  /**
+   * @return {User[]}
+   */
+  public static fakeUsers(): User[] {
+    const users = [];
 
-    /**
-     * @return {User[]}
-     */
-    public static fakeUsers(): User[] {
+    const user1 = User.register(
+      'alex.clare@test.com',
+      bcrypt.hashSync('testpass', bcrypt.genSaltSync(10)),
+      'Alex',
+      'Clare'
+    );
 
-        let users = [];
+    const user2 = User.register(
+      'jack.green@test.com',
+      bcrypt.hashSync('testpass', bcrypt.genSaltSync(10)),
+      'Jack',
+      'Green'
+    );
 
-        let user1 = User.register(
-            'alex.clare@test.com',
-            bcrypt.hashSync('testpass', bcrypt.genSaltSync(10)),
-            'Alex',
-            'Clare'
-        );
+    users.push(user1);
+    users.push(user2);
 
-        let user2 = User.register(
-            'jack.green@test.com',
-            bcrypt.hashSync('testpass', bcrypt.genSaltSync(10)),
-            'Jack',
-            'Green'
-        );
-
-        users.push(user1);
-        users.push(user2);
-
-        return users;
-    }
+    return users;
+  }
 }

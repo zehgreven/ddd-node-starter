@@ -21,9 +21,9 @@ services:
     volumes:
      - data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: Eh7gLagHHHzK2h7j
-      POSTGRES_USER: starter_user
-      POSTGRES_DB: starter_db
+      POSTGRES_PASSWORD: docker
+      POSTGRES_USER: docker
+      POSTGRES_DB: base
 
 volumes:
  data: {}
