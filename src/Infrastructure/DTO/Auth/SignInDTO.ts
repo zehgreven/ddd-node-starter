@@ -14,7 +14,7 @@ export class SignInDTO {
    * @param {Request} request
    * @returns {SignInDTO}
    */
-  static fromRequest(request: Request) {
+  static fromRequest(request: Request): SignInDTO {
     return new SignInDTO(request.body.login, request.body.password);
   }
 

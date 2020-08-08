@@ -35,7 +35,6 @@ export class AuthService implements IAuthService {
    */
   public signUp(DTO: SignUpDTO) {
     const user = User.register(DTO.login, bcrypt.hashSync(DTO.password, bcrypt.genSaltSync(10)));
-
     return this.userRepository.store(user);
   }
 }

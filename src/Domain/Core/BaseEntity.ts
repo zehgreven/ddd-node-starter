@@ -9,6 +9,7 @@ export class BaseEntity {
     name: 'is_active',
     type: 'boolean',
     nullable: false,
+    default: true,
   })
   isActive: boolean;
 

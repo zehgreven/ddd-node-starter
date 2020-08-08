@@ -45,7 +45,7 @@ export class User extends BaseEntity {
    * @returns {User}
    */
   static register(login: string, password: string): User {
-    return Builder<User>().login(login).password(password).build();
+    return Builder(User).login(login).password(password).build();
   }
 
   public remove(): void {
