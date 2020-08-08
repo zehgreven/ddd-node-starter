@@ -1,6 +1,6 @@
 import { Builder } from 'builder-pattern';
 import { Exclude } from 'class-transformer';
-import { Entity, Column, Index } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 import { BaseEntity } from '../Core/BaseEntity';
 

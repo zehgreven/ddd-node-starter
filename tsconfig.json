@@ -14,7 +14,7 @@
     "declaration": true,
     "allowJs": true,
     "checkJs": true,
-    "emitDeclarationOnly": true,
+    // "emitDeclarationOnly": true,
     "baseUrl": ".",
     "typeRoots": [
       "./node_modules/@types",

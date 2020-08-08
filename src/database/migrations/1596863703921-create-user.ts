@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class createUser1596863703921 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    return queryRunner.createTable(
+    await queryRunner.createTable(
       new Table({
         name: 'user',
         columns: [
@@ -16,13 +16,13 @@ export class createUser1596863703921 implements MigrationInterface {
           },
           {
             name: 'login',
-            type: 'string',
+            type: 'varchar',
             length: '255',
             isNullable: false,
           },
           {
             name: 'password',
-            type: 'string',
+            type: 'varchar',
             length: '60',
             isNullable: false,
           },
@@ -48,11 +48,12 @@ export class createUser1596863703921 implements MigrationInterface {
             isNullable: true,
           },
         ],
-      })
+      }),
+      true
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    return queryRunner.dropTable('users');
+    await queryRunner.dropTable('users', true);
   }
 }

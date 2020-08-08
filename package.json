@@ -10,8 +10,8 @@
     "test": "nyc --clean --require ts-node/register --require tsconfig-paths/register --require reflect-metadata/Reflect --extension .ts -- mocha --exit --timeout 5000",
     "test:all": "yarn test **/*.spec.ts",
     "dev:no-compile": "nodemon",
-    "typeorm:migrate": "typeorm migration:run",
-    "typeorm:migrate:revert": "typeorm migration:revert",
+    "typeorm:migration:run": "ts-node --require tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run",
+    "typeorm:migration:revert": "ts-node --require tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert",
     "typeorm:migration:create": "typeorm migration:create --name "
   },
   "keywords": [],
