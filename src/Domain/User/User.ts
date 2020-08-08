@@ -1,11 +1,10 @@
 import { Builder } from 'builder-pattern';
 import { Exclude } from 'class-transformer';
-import { Entity, Column, Unique } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
 import { BaseEntity } from '../Core/BaseEntity';
 
-@Entity('user')
-@Unique('un_login', ['login'])
+@Entity('user', { schema: 'acc' })
 export class User extends BaseEntity {
   @Column({
     name: 'login',

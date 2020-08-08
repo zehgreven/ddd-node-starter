@@ -8,8 +8,9 @@ import { User } from '../Domain/User/User';
 export const environment = {
   baseUrl: 'http://localhost:3123',
   apiVersion: '/api/v1',
-  login: 'alex.clare@test.com',
-  password: 'testpass',
+  login: 'admin@admin.com',
+  password: 'Qwe123@',
+  users: [],
 };
 
 const getConnection: Promise<Connection> = createConnection(createConnectionOptions());
@@ -21,6 +22,7 @@ export function rollbackMigrations(done) {
       migration.down(connection.createQueryRunner()).then(() => {
         migration.up(connection.createQueryRunner()).then(() => {
           connection.manager.save(UserFactory.fakeUsers()).then((users: User[]) => {
+            environment.users = users;
             done();
           });
         });

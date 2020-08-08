@@ -9,12 +9,9 @@ export class UserFactory {
   public static fakeUsers(): User[] {
     const users = [];
 
-    const user1 = User.register('alex.clare@test.com', bcrypt.hashSync('testpass', bcrypt.genSaltSync(10)));
-
-    const user2 = User.register('jack.green@test.com', bcrypt.hashSync('testpass', bcrypt.genSaltSync(10)));
+    const user1 = User.register('admin@admin.com', bcrypt.hashSync('Qwe123@', bcrypt.genSaltSync(10)));
 
     users.push(user1);
-    users.push(user2);
 
     return users;
   }

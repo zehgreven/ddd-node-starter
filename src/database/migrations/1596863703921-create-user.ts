@@ -1,10 +1,12 @@
-import { MigrationInterface, QueryRunner, Table, TableUnique } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class createUser1596863703921 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.createSchema('acc');
+
     await queryRunner.createTable(
       new Table({
-        name: 'user',
+        name: 'acc.user',
         columns: [
           {
             name: 'id',
@@ -54,17 +56,13 @@ export class createUser1596863703921 implements MigrationInterface {
       true
     );
 
-    await queryRunner.createUniqueConstraint(
-      'user',
-      new TableUnique({
-        name: 'uq_login',
-        columnNames: ['login'],
-      })
+    await queryRunner.query(
+      'CREATE UNIQUE INDEX uq_login ON acc.user (login, (deleted_at IS NULL)) WHERE deleted_at IS NULL;'
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropUniqueConstraint('user', 'uq_login');
-    await queryRunner.dropTable('users', true);
+    await queryRunner.dropTable('acc.user', true);
+    await queryRunner.dropSchema('acc');
   }
 }

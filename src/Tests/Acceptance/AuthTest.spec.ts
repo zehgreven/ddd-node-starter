@@ -1,8 +1,8 @@
 import 'mocha';
+import { environment, rollbackMigrations } from '../TestCase';
 
 import chai = require('chai');
 import chaiHttp = require('chai-http');
-import { environment, rollbackMigrations } from '../TestCase';
 
 const should = chai.should();
 
@@ -29,7 +29,7 @@ describe('Auth', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('id');
           res.body.should.have.property('login').eql('test@test.com');
-          res.body.should.have.property('isActive').eql(false);
+          res.body.should.have.property('isActive').eql(true);
 
           done();
         });
@@ -63,8 +63,8 @@ describe('Auth', () => {
         .post('/auth/sign-in')
         .type('form')
         .send({
-          login: 'alex.clare@test.com',
-          password: 'testpass',
+          login: 'admin@admin.com',
+          password: 'Qwe123@',
         })
         .end((err, res) => {
           res.should.have.status(200);
@@ -79,10 +79,10 @@ describe('Auth', () => {
     it('should return validation error while login', (done) => {
       chai
         .request(environment.baseUrl + environment.apiVersion)
-        .post('/auth/sign-up')
+        .post('/auth/sign-in')
         .type('form')
         .send({
-          login: 'alex.clare@test.com',
+          login: 'only@login.com',
         })
         .end((err, res) => {
           res.should.have.status(422);
@@ -90,6 +90,44 @@ describe('Auth', () => {
           res.body.should.be.a('object');
           res.body.should.have.property('errorMessage').eql('Validation error.');
           res.body.should.have.property('error');
+
+          done();
+        });
+    });
+
+    it('should return user not found while login', (done) => {
+      chai
+        .request(environment.baseUrl + environment.apiVersion)
+        .post('/auth/sign-in')
+        .type('form')
+        .send({
+          login: 'incorret@login.com',
+          password: '123456',
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+
+          res.body.should.be.a('object');
+          res.body.should.have.property('errorMessage').eql('User with login incorret@login.com not found.');
+
+          done();
+        });
+    });
+
+    it('should return login or password incorrect while login', (done) => {
+      chai
+        .request(environment.baseUrl + environment.apiVersion)
+        .post('/auth/sign-in')
+        .type('form')
+        .send({
+          login: 'admin@admin.com',
+          password: '123456',
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+
+          res.body.should.be.a('object');
+          res.body.should.have.property('errorMessage').eql('The login or password is incorrect. Try again, please.');
 
           done();
         });

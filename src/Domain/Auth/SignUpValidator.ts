@@ -2,7 +2,7 @@ import * as joi from 'joi';
 
 module.exports = {
   body: {
-    login: joi.string().max(255).required(),
+    login: joi.string().max(255).email().required(),
     password: joi
       .string()
       .min(6)

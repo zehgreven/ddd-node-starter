@@ -1,10 +1,8 @@
 import 'mocha';
+import { environment, rollbackMigrations } from '../TestCase';
 
 import chai = require('chai');
 import chaiHttp = require('chai-http');
-import { environment, rollbackMigrations } from '../TestCase';
-
-const should = chai.should();
 
 chai.use(chaiHttp);
 
@@ -53,7 +51,7 @@ describe('User', () => {
             .set('x-access-token', res.body.token)
             .end((err, res) => {
               res.should.have.status(200);
-              res.should.have.header('x-items-count', '2');
+              res.should.have.header('x-items-count', '1');
               done();
             });
         });
@@ -71,13 +69,13 @@ describe('User', () => {
         .then((res) => {
           chai
             .request(environment.baseUrl + environment.apiVersion)
-            .get('/users/1')
+            .get(`/users/${environment.users[0].id}`)
             .set('x-access-token', res.body.token)
             .end((err, res) => {
               res.should.have.status(200);
               res.body.should.have.property('id');
-              res.body.should.have.property('login').eql('alex.clare@test.com');
-              res.body.should.have.property('isActive').eql(false);
+              res.body.should.have.property('login').eql('admin@admin.com');
+              res.body.should.have.property('isActive').eql(true);
               done();
             });
         });
@@ -93,13 +91,14 @@ describe('User', () => {
           password: environment.password,
         })
         .then((res) => {
+          const id = 'cd0dbb82-e2bb-4d56-8a86-ed60c3d97225';
           chai
             .request(environment.baseUrl + environment.apiVersion)
-            .get('/users/228')
+            .get(`/users/${id}`)
             .set('x-access-token', res.body.token)
             .end((err, res) => {
               res.should.have.status(404);
-              res.body.should.have.property('errorMessage').eql('User with ID #228 not found.');
+              res.body.should.have.property('errorMessage').eql(`User with ID #${id} not found.`);
               done();
             });
         });
