@@ -1,12 +1,11 @@
 import { injectable, inject } from 'inversify';
 
-import { Pagination } from '../../Domain/Core/Pagination';
-import { IUserRepository } from '../../Domain/User/IUserRepository';
-import { IUserService } from '../../Domain/User/IUserService';
-import { User } from '../../Domain/User/User';
+import { Pagination } from '../Core/Pagination';
+import { IUserRepository } from './IUserRepository';
+import { User } from './User';
 
 @injectable()
-export class UserService implements IUserService {
+export class UserService {
   constructor(@inject('UserRepository') private userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }

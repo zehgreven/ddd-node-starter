@@ -4,14 +4,14 @@ import { inject } from 'inversify';
 import { controller, httpDelete, httpGet } from 'inversify-express-utils';
 
 import { Pagination } from '../../Domain/Core/Pagination';
-import { IUserService } from '../../Domain/User/IUserService';
 import { User } from '../../Domain/User/User';
+import { UserService } from '../../Domain/User/UserService';
 import { IRequest } from '../../Utils/Request/custom';
 import { authMiddleware } from '../Middleware/CustomMiddleware';
 
 @controller('/users', authMiddleware)
 export class UserController {
-  constructor(@inject('IUserService') private userService: IUserService) {}
+  constructor(@inject('UserService') private userService: UserService) {}
 
   /**
    * @param {IRequest} request

@@ -4,14 +4,14 @@ import * as validate from 'express-validation';
 import { inject } from 'inversify';
 import { controller, httpPost } from 'inversify-express-utils';
 
-import { IAuthService } from '../../../Domain/Core/IAuthService';
-import { User } from '../../../Domain/User/User';
-import { SignUpDTO } from '../../../Infrastructure/DTO/Auth/SignUpDTO';
-import * as signUpValidator from '../../../Infrastructure/Validators/Auth/SignUpValidator';
+import { AuthService } from '@src/Domain/Auth/AuthService';
+import { SignUpDTO } from '@src/Domain/Auth/SignUpDTO';
+import * as signUpValidator from '@src/Domain/Auth/SignUpValidator';
+import { User } from '@src/Domain/User/User';
 
 @controller('/auth/sign-up')
 export class SignUpController {
-  constructor(@inject('IAuthService') private authService: IAuthService) {}
+  constructor(@inject('AuthService') private authService: AuthService) {}
 
   /**
    * @param {Request} request

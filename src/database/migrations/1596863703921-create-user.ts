@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableUnique } from 'typeorm';
 
 export class createUser1596863703921 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -36,11 +36,13 @@ export class createUser1596863703921 implements MigrationInterface {
             name: 'created_at',
             type: 'timestamp',
             isNullable: false,
+            default: 'NOW()',
           },
           {
             name: 'updated_at',
             type: 'timestamp',
             isNullable: true,
+            onUpdate: 'NOW()',
           },
           {
             name: 'deleted_at',
@@ -51,9 +53,18 @@ export class createUser1596863703921 implements MigrationInterface {
       }),
       true
     );
+
+    await queryRunner.createUniqueConstraint(
+      'user',
+      new TableUnique({
+        name: 'uq_login',
+        columnNames: ['login'],
+      })
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropUniqueConstraint('user', 'uq_login');
     await queryRunner.dropTable('users', true);
   }
 }

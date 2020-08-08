@@ -12,8 +12,8 @@ export class SignUpDTO {
   }
 
   /**
-   * @param {} request
-   * @returns {SignUpDTO}
+   * @param  {Request} request
+   * @returns SignUpDTO
    */
   static fromRequest(request: Request): SignUpDTO {
     return Builder<SignUpDTO>().login(request.body.login).password(request.body.password).build();

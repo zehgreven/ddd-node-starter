@@ -3,13 +3,13 @@ import * as validate from 'express-validation';
 import { inject } from 'inversify';
 import { controller, httpPost } from 'inversify-express-utils';
 
-import { IAuthService } from '../../../Domain/Core/IAuthService';
-import { SignInDTO } from '../../../Infrastructure/DTO/Auth/SignInDTO';
-import * as signInValidator from '../../../Infrastructure/Validators/Auth/SignInValidator';
+import { AuthService } from '@src/Domain/Auth/AuthService';
+import { SignInDTO } from '@src/Domain/Auth/SignInDTO';
+import * as signInValidator from '@src/Domain/Auth/SignInValidator';
 
 @controller('/auth/sign-in')
 export class SignInController {
-  constructor(@inject('IAuthService') private authService: IAuthService) {}
+  constructor(@inject('AuthService') private authService: AuthService) {}
 
   /**
    * @param {Request} request

@@ -2,11 +2,11 @@ import { injectable } from 'inversify';
 import { EntityRepository, SelectQueryBuilder } from 'typeorm';
 import { ObjectType } from 'typeorm/common/ObjectType';
 
-import { Pagination } from '../../../Domain/Core/Pagination';
-import { IUserRepository } from '../../../Domain/User/IUserRepository';
-import { User } from '../../../Domain/User/User';
-import { UserException } from '../../../Domain/User/UserException';
-import { TypeOrmRepository } from './TypeOrmRepository';
+import { Pagination } from '../Core/Pagination';
+import { TypeOrmRepository } from '../Core/TypeOrmRepository';
+import { IUserRepository } from './IUserRepository';
+import { User } from './User';
+import { UserException } from './UserException';
 
 @injectable()
 @EntityRepository()

@@ -2,15 +2,14 @@ import * as bcrypt from 'bcrypt';
 import { injectable, inject } from 'inversify';
 import * as jwt from 'jsonwebtoken';
 
-import { IAuthService } from '../../Domain/Core/IAuthService';
-import { IUserRepository } from '../../Domain/User/IUserRepository';
-import { User } from '../../Domain/User/User';
-import { UserException } from '../../Domain/User/UserException';
-import { SignInDTO } from '../DTO/Auth/SignInDTO';
-import { SignUpDTO } from '../DTO/Auth/SignUpDTO';
+import { IUserRepository } from '../User/IUserRepository';
+import { User } from '../User/User';
+import { UserException } from '../User/UserException';
+import { SignInDTO } from './SignInDTO';
+import { SignUpDTO } from './SignUpDTO';
 
 @injectable()
-export class AuthService implements IAuthService {
+export class AuthService {
   constructor(@inject('UserRepository') private userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
@@ -33,7 +32,7 @@ export class AuthService implements IAuthService {
    * @param {SignUpDTO} DTO
    * @returns {Promise<User>}
    */
-  public signUp(DTO: SignUpDTO) {
+  public signUp(DTO: SignUpDTO): Promise<User> {
     const user = User.register(DTO.login, bcrypt.hashSync(DTO.password, bcrypt.genSaltSync(10)));
     return this.userRepository.store(user);
   }

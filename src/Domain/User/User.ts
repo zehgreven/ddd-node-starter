@@ -1,11 +1,11 @@
 import { Builder } from 'builder-pattern';
 import { Exclude } from 'class-transformer';
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, Unique } from 'typeorm';
 
 import { BaseEntity } from '../Core/BaseEntity';
 
 @Entity('user')
-// @Index('users_login_deleted_sequence', ['login', 'deletedAt'], { unique: true })
+@Unique('un_login', ['login'])
 export class User extends BaseEntity {
   @Column({
     name: 'login',
