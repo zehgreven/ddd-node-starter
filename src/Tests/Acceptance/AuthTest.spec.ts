@@ -4,8 +4,6 @@ import { environment, rollbackMigrations } from '../TestCase';
 import chai = require('chai');
 import chaiHttp = require('chai-http');
 
-const should = chai.should();
-
 chai.use(chaiHttp);
 
 describe('Auth', () => {
