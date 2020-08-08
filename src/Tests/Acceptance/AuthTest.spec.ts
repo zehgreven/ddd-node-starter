@@ -63,8 +63,8 @@ describe('Auth', () => {
         .post('/auth/sign-in')
         .type('form')
         .send({
-          login: 'admin@admin.com',
-          password: 'Qwe123@',
+          login: environment.login,
+          password: environment.password,
         })
         .end((err, res) => {
           res.should.have.status(200);
