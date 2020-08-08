@@ -23,20 +23,6 @@ export class User extends BaseEntity {
   })
   password: string;
 
-  constructor(
-    login: string,
-    password: string,
-    isActive: boolean,
-    createdAt: Date,
-    updatedAt: Date,
-    deletedAt: Date,
-    id?: string
-  ) {
-    super(isActive, createdAt, updatedAt, deletedAt, id);
-    this.login = login;
-    this.password = password;
-  }
-
   /**
    * @param {string} login
    * @param {string} password
@@ -45,9 +31,5 @@ export class User extends BaseEntity {
    */
   static register(login: string, password: string): User {
     return Builder(User).login(login).password(password).build();
-  }
-
-  public remove(): void {
-    this.deletedAt = new Date();
   }
 }
