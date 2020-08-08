@@ -1,7 +1,7 @@
 import { Pagination } from '../Core/Pagination';
 import { User } from './User';
 
-export interface UserRepository {
+export interface IUserRepository {
   /**
    * @param {Pagination} pagination
    * @returns {Promise<[User[] , number]>}
@@ -9,16 +9,16 @@ export interface UserRepository {
   all(pagination: Pagination): Promise<[User[], number]>;
 
   /**
-   * @param {number} id
+   * @param {string} id
    * @returns {Promise<User>}
    */
-  byId(id: number): Promise<User>;
+  byId(id: string): Promise<User>;
 
   /**
-   * @param {string} email
+   * @param {string} login
    * @returns {Promise<User>}
    */
-  byEmail(email: string): Promise<User>;
+  byLogin(login: string): Promise<User>;
 
   /**
    * @param {User} user

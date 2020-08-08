@@ -1,15 +1,13 @@
 import { injectable, inject } from 'inversify';
 
 import { Pagination } from '../../Domain/Core/Pagination';
+import { IUserRepository } from '../../Domain/User/IUserRepository';
 import { IUserService } from '../../Domain/User/IUserService';
 import { User } from '../../Domain/User/User';
-import { UserNotFound } from '../../Domain/User/UserNotFound';
-import { UserRepository } from '../../Domain/User/UserRepository';
-import { ProfileDTO } from '../DTO/Profile/ProfileDTO';
 
 @injectable()
 export class UserService implements IUserService {
-  constructor(@inject('UserRepository') private userRepository: UserRepository) {
+  constructor(@inject('UserRepository') private userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 
@@ -22,35 +20,18 @@ export class UserService implements IUserService {
   }
 
   /**
-   * @param {number} id
+   * @param {string} id
    * @returns {Promise<User>}
    */
-  public byId(id: number): Promise<User> {
+  public byId(id: string): Promise<User> {
     return this.userRepository.byId(id);
   }
 
   /**
-   * @param {number} id
-   * @param {ProfileDTO} DTO
-   * @returns {Promise<User>}
-   */
-  update(id: number, DTO: ProfileDTO): Promise<User> {
-    return this.userRepository.byId(id).then((user: User) => {
-      if (!user) throw UserNotFound.fromId(id);
-
-      user.email = DTO.email;
-      user.firstName = DTO.firstName;
-      user.lastName = DTO.lastName;
-
-      return this.userRepository.store(user);
-    });
-  }
-
-  /**
-   * @param {number} id
+   * @param {string} id
    * @returns {Promise<void>}
    */
-  public remove(id: number): Promise<void> {
+  public remove(id: string): Promise<void> {
     return this.userRepository.byId(id).then((user: User) => {
       user.remove();
       this.userRepository.store(user);

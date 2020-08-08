@@ -20,7 +20,7 @@ export class UserController {
    * @returns {User[]}
    */
   @httpGet('/')
-  public async all(request: IRequest, response: Response) {
+  public async all(request: IRequest, response: Response): Promise<any> {
     return this.userService.all(Pagination.fromRequest(request)).then((data: [User[], number]) => {
       response.set('X-Items-Count', data[1].toString());
       return serialize(data[0]);
@@ -32,8 +32,8 @@ export class UserController {
    * @returns {Promise<User>}
    */
   @httpGet('/:id')
-  public async byId(request: IRequest) {
-    return this.userService.byId(parseInt(request.params.id)).then((user: User) => {
+  public async byId(request: IRequest): Promise<any> {
+    return this.userService.byId(request.params.id).then((user: User) => {
       return serialize(user);
     });
   }
@@ -43,8 +43,8 @@ export class UserController {
    * @param {Response} response
    */
   @httpDelete('/:id')
-  public async remove(request: IRequest, response: Response) {
-    return this.userService.remove(parseInt(request.params.id)).then(() => {
+  public async remove(request: IRequest, response: Response): Promise<any> {
+    return this.userService.remove(request.params.id).then(() => {
       response.set('X-Items-Count', '0');
       response.status(204);
     });

@@ -1,8 +1,8 @@
 import 'mocha';
-import { environment, rollbackMigrations } from '../TestCase';
 
 import chai = require('chai');
 import chaiHttp = require('chai-http');
+import { environment, rollbackMigrations } from '../TestCase';
 
 const should = chai.should();
 
@@ -43,7 +43,7 @@ describe('User', () => {
         .post('/auth/sign-in')
         .type('form')
         .send({
-          email: environment.email,
+          login: environment.login,
           password: environment.password,
         })
         .then((res) => {
@@ -65,7 +65,7 @@ describe('User', () => {
         .post('/auth/sign-in')
         .type('form')
         .send({
-          email: environment.email,
+          login: environment.login,
           password: environment.password,
         })
         .then((res) => {
@@ -76,10 +76,7 @@ describe('User', () => {
             .end((err, res) => {
               res.should.have.status(200);
               res.body.should.have.property('id');
-              res.body.should.have.property('email').eql('alex.clare@test.com');
-              res.body.should.have.property('firstName').eql('Alex');
-              res.body.should.have.property('lastName').eql('Clare');
-              res.body.should.have.property('fullName').eql('Alex Clare');
+              res.body.should.have.property('login').eql('alex.clare@test.com');
               res.body.should.have.property('isActive').eql(false);
               done();
             });
@@ -92,7 +89,7 @@ describe('User', () => {
         .post('/auth/sign-in')
         .type('form')
         .send({
-          email: environment.email,
+          login: environment.login,
           password: environment.password,
         })
         .then((res) => {

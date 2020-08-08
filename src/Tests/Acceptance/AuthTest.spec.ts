@@ -1,8 +1,8 @@
 import 'mocha';
-import { environment, rollbackMigrations } from '../TestCase';
 
 import chai = require('chai');
 import chaiHttp = require('chai-http');
+import { environment, rollbackMigrations } from '../TestCase';
 
 const should = chai.should();
 
@@ -20,19 +20,15 @@ describe('Auth', () => {
         .post('/auth/sign-up')
         .type('form')
         .send({
-          email: 'test@test.com',
+          login: 'test@test.com',
           password: 'testpass',
-          firstName: 'Ivan',
-          lastName: 'Ivanov',
         })
         .end((err, res) => {
           res.should.have.status(201);
 
           res.body.should.be.a('object');
           res.body.should.have.property('id');
-          res.body.should.have.property('email').eql('test@test.com');
-          res.body.should.have.property('firstName').eql('Ivan');
-          res.body.should.have.property('lastName').eql('Ivanov');
+          res.body.should.have.property('login').eql('test@test.com');
           res.body.should.have.property('isActive').eql(false);
 
           done();
@@ -45,10 +41,8 @@ describe('Auth', () => {
         .post('/auth/sign-up')
         .type('form')
         .send({
-          email: 'test',
+          login: 'test',
           password: 'testpass',
-          firstName: 'Ivan',
-          lastName: 'Ivanov',
         })
         .end((err, res) => {
           res.should.have.status(422);
@@ -69,7 +63,7 @@ describe('Auth', () => {
         .post('/auth/sign-in')
         .type('form')
         .send({
-          email: 'alex.clare@test.com',
+          login: 'alex.clare@test.com',
           password: 'testpass',
         })
         .end((err, res) => {
@@ -88,7 +82,7 @@ describe('Auth', () => {
         .post('/auth/sign-up')
         .type('form')
         .send({
-          email: 'alex.clare@test.com',
+          login: 'alex.clare@test.com',
         })
         .end((err, res) => {
           res.should.have.status(422);

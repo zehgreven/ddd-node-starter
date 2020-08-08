@@ -8,20 +8,20 @@ import { IRequest } from '../../Utils/Request/custom';
 /**
  * Show REST info in logs
  */
-export function loggerMiddleware(req: express.Request, res: any, next: any) {
+export function loggerMiddleware(req: express.Request, res: any, next: any): void {
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
   console.log(`[${req.method}]: ${fullUrl}`);
 
   next();
 }
 
-export function jsonMiddleware(req: express.Request, res: any, next: any) {
+export function jsonMiddleware(req: express.Request, res: any, next: any): void {
   res.set('Content-Type', 'application/json');
   res.set('X-Items-Count', '1');
   next();
 }
 
-export function authMiddleware(req: IRequest, res: any, next: any) {
+export function authMiddleware(req: IRequest, res: any, next: any): void {
   const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (!token) {

@@ -11,7 +11,7 @@ import { createConnection } from 'typeorm';
 import { createConnectionOptions } from './config/database';
 import container from './config/inversify.config';
 import { AccessDeniedError } from './Domain/Core/AccessDeniedError';
-import { EntityNotFound } from './Domain/Core/EntityNotFound';
+import { EntityException } from './Domain/Core/EntityException';
 import { jsonMiddleware, loggerMiddleware } from './Http/Middleware/CustomMiddleware';
 
 createConnection(createConnectionOptions())
@@ -36,7 +36,7 @@ createConnection(createConnectionOptions())
           return;
         }
 
-        if (err instanceof EntityNotFound) {
+        if (err instanceof EntityException) {
           res.status(404).send({ errorMessage: err.message });
           return;
         }

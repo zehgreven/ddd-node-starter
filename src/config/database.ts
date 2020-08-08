@@ -1,9 +1,7 @@
 import * as dotenv from 'dotenv';
 import { ConnectionOptions } from 'typeorm';
 
-import { InitMigration1522414949149 } from '../database/migrations/1522414949149-InitMigration';
-import { FriendRequest } from '../Domain/FriendRequest/FriendRequest';
-import { Image } from '../Domain/Image/Image';
+import { createUser1596863703921 } from '../database/migrations/1596863703921-create-user';
 import { User } from '../Domain/User/User';
 
 dotenv.load();
@@ -12,13 +10,13 @@ export function createConnectionOptions(): ConnectionOptions {
   return {
     type: 'postgres',
     host: process.env.DB_HOST,
-    port: parseInt(process.env.DB_PORT),
+    port: parseInt(process.env.DB_PORT, 10),
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    entities: [User, Image, FriendRequest],
+    entities: [User],
     synchronize: true,
     logging: false,
-    migrations: [InitMigration1522414949149],
+    migrations: [createUser1596863703921],
   };
 }

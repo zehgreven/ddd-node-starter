@@ -19,10 +19,12 @@
     "name": "Dima Aseev",
     "url": "https://github.com/dmiseev/"
   },
-  "contributors": [{
-    "name": "José Eduardo Costa Lazaretti",
-    "url": "https://github.com/zehgreven/"
-  }],
+  "contributors": [
+    {
+      "name": "José Eduardo Costa Lazaretti",
+      "url": "https://github.com/zehgreven/"
+    }
+  ],
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -48,6 +50,7 @@
     "pg": "^8.3.0",
     "reflect-metadata": "0.1.13",
     "typeorm": "^0.2.25",
+    "builder-pattern": "^1.2.4",
     "uuidv4": "^6.2.1"
   },
   "devDependencies": {

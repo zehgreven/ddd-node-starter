@@ -1,12 +1,12 @@
 import { Request } from 'express';
 
 export class SignInDTO {
-  private _email: string;
+  private _login: string;
 
   private _password: string;
 
-  constructor(email: string, password: string) {
-    this._email = email;
+  constructor(login: string, password: string) {
+    this._login = login;
     this._password = password;
   }
 
@@ -15,11 +15,11 @@ export class SignInDTO {
    * @returns {SignInDTO}
    */
   static fromRequest(request: Request) {
-    return new SignInDTO(request.body.email, request.body.password);
+    return new SignInDTO(request.body.login, request.body.password);
   }
 
-  get email(): string {
-    return this._email;
+  get login(): string {
+    return this._login;
   }
 
   get password(): string {

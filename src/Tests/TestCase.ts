@@ -8,7 +8,7 @@ import { User } from '../Domain/User/User';
 export const environment = {
   baseUrl: 'http://localhost:3123',
   apiVersion: '/api/v1',
-  email: 'alex.clare@test.com',
+  login: 'alex.clare@test.com',
   password: 'testpass',
 };
 

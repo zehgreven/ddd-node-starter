@@ -1,4 +1,3 @@
-import { ProfileDTO } from '../../Infrastructure/DTO/Profile/ProfileDTO';
 import { Pagination } from '../Core/Pagination';
 import { User } from './User';
 
@@ -10,21 +9,14 @@ export interface IUserService {
   all(pagination: Pagination): Promise<[User[], number]>;
 
   /**
-   * @param {number} id
+   * @param {string} id
    * @returns {Promise<User>}
    */
-  byId(id: number): Promise<User>;
+  byId(id: string): Promise<User>;
 
   /**
-   * @param {number} id
-   * @param {ProfileDTO} DTO
-   * @returns {Promise<User>}
-   */
-  update(id: number, DTO: ProfileDTO): Promise<User>;
-
-  /**
-   * @param {number} id
+   * @param {string} id
    * @returns {Promise<void>}
    */
-  remove(id: number): Promise<void>;
+  remove(id: string): Promise<void>;
 }
