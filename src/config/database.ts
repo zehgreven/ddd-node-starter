@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv';
 import { ConnectionOptions } from 'typeorm';
 
+import { Role } from '@src/Domain/Role/Role';
+
 import { createUser1596863703921 } from '../database/migrations/1596863703921-create-user';
 import { User } from '../Domain/User/User';
 
@@ -14,9 +16,9 @@ export function createConnectionOptions(): ConnectionOptions {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    entities: [User],
+    entities: [User, Role],
     synchronize: true,
-    logging: false,
+    logging: true,
     migrations: [createUser1596863703921],
   };
 }
