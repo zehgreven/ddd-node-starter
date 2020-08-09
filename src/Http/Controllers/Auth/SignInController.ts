@@ -19,4 +19,14 @@ export class SignInController {
   public async signIn(request: Request): Promise<any> {
     return this.authService.signIn(SignInDTO.fromRequest(request));
   }
+
+  /**
+   * @param {Request} request
+   * @returns {Promise<void>}
+   */
+  @httpPost('/refresh')
+  public async refreshToken(request: Request): Promise<any> {
+    const refreshToken = request.body['refresh-token'];
+    return this.authService.refreshToken(refreshToken);
+  }
 }

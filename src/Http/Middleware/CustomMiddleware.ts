@@ -26,30 +26,38 @@ export function authMiddleware(req: IRequest, res: any, next: any): void {
 
   if (!token) {
     res.status(401).send({ errorMessage: 'not authorized' });
-    return;
   }
 
-  const userJson = jwt.decode(token);
+  jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
+    if (error) {
+      if (error.name === 'TokenExpiredError') {
+        res.status(500).send({ errorMessage: 'token expired' });
+        return;
+      }
+      res.status(500).send({ errorMessage: error.message });
+      return;
+    }
 
-  if (!userJson || !userJson.id) {
-    res.status(401).send({ errorMessage: 'not authorized' });
-    return;
-  }
-
-  const entityManager = getManager();
-
-  entityManager
-    .createQueryBuilder(User, 'u')
-    .where('u.id = :id')
-    .setParameter('id', userJson.id)
-    .getOne()
-    .then((user: User) => {
-      req.user = user;
-
-      next();
-    })
-    .catch((err) => {
-      console.log(err);
+    if (!decoded || !decoded.id) {
       res.status(401).send({ errorMessage: 'not authorized' });
-    });
+      return;
+    }
+
+    const entityManager = getManager();
+
+    entityManager
+      .createQueryBuilder(User, 'u')
+      .where('u.id = :id')
+      .setParameter('id', decoded.id)
+      .getOne()
+      .then((user: User) => {
+        req.user = user;
+
+        next();
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(401).send({ errorMessage: 'not authorized' });
+      });
+  });
 }
