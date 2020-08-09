@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from 'typeorm';
 
 import { baseEntityColumns } from '../Constants';
 
@@ -35,7 +35,24 @@ export class createRole1596923265840 implements MigrationInterface {
             length: '255',
             isNullable: true,
           },
+          {
+            name: 'parent_id',
+            type: 'uuid',
+            isNullable: true,
+          },
         ],
+      })
+    );
+
+    await queryRunner.createForeignKey(
+      this.ROLE_TABLE,
+      new TableForeignKey({
+        name: 'fk_role_parent',
+        columnNames: ['parent_id'],
+        referencedTableName: this.ROLE_TABLE,
+        referencedColumnNames: ['id'],
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       })
     );
 
