@@ -10,7 +10,7 @@ export interface IBaseCrudRepository<TEntity> {
   /**
    * @param {TEntity} entity
    */
-  store(entity: TEntity): Promise<TEntity>;
+  save(entity: TEntity): Promise<TEntity>;
 
   /**
    * @param {string} id

@@ -23,5 +23,5 @@ export interface IUserRepository {
   /**
    * @param {User} user
    */
-  store(user: User): Promise<User>;
+  save(user: User): Promise<User>;
 }

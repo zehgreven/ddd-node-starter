@@ -33,7 +33,7 @@ export class UserService {
   public remove(id: string): Promise<void> {
     return this.userRepository.byId(id).then((user: User) => {
       user.remove();
-      this.userRepository.store(user);
+      this.userRepository.save(user);
     });
   }
 }

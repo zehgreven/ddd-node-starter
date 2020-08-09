@@ -10,7 +10,7 @@ import { UserException } from './UserException';
 
 @injectable()
 @EntityRepository()
-export class TypeOrmUserRepository extends TypeOrmRepository implements IUserRepository {
+export class UserTypeOrmRepository extends TypeOrmRepository implements IUserRepository {
   /**
    * @param {Pagination} pagination
    * @returns {Promise<[User[] , number]>}
@@ -57,7 +57,7 @@ export class TypeOrmUserRepository extends TypeOrmRepository implements IUserRep
    * @param {User} user
    * @returns {Promise<User>}
    */
-  public store(user: User): Promise<User> {
+  public save(user: User): Promise<User> {
     return this.entityManager.save(user);
   }
 
