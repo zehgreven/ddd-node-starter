@@ -39,6 +39,11 @@ export class BaseEntity {
   })
   deletedAt: Date;
 
+  constructor() {
+    this.isActive = true;
+    this.createdAt = new Date();
+  }
+
   public remove(): void {
     this.deletedAt = new Date();
   }
